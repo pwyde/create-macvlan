@@ -1,0 +1,13 @@
+[Unit]
+Description=Create MACVLAN interface
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/create-macvlan --macvlan macvlan0 --link eth0 --ip-address 192.168.1.20/24 --network 192.168.1.0/24
+
+[Install]
+WantedBy=multi-user.target
+
