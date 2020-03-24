@@ -1,5 +1,5 @@
 [Unit]
-Description=Create MACVLAN interface
+Description=Create macvlan interface
 Wants=network-online.target
 After=network-online.target
 

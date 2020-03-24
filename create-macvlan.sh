@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# MACVLAN interface creation script.
+# macvlan interface creation script.
 # Copyright (C) 2019 Patrik Wyde <patrik@wyde.se>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@ test_host="1.1.1.1"
 print_help() {
 echo "
 Description:
-  Script for creating MACVLAN interfaces. Used for enabling network connect-
+  Script for creating macvlan interfaces. Used for enabling network connect-
   ivity between host and KVM guest VMs, LXC/LXD and Docker containers.
 
 Examples:
@@ -31,14 +31,14 @@ Examples:
   ${0} --macvlan mynet --link eth0 --ip-address 192.168.1.64/32 --network 192.168.1.64/26
 
 Options:
-  -m, --macvlan     MACVLAN interface name. Will be named 'macvlan' if not
+  -m, --macvlan     macvlan interface name. Will be named 'macvlan' if not
                     specified.
 
   -l, --link        Parent network link/device.
 
-  -i, --ip-address  IPv4 address in CIDR notation for the MACVLAN interface.
+  -i, --ip-address  IPv4 address in CIDR notation for the macvlan interface.
 
-  -n, --network     IPv4 CIDR network block (route) for the MACVLAN interface.
+  -n, --network     IPv4 CIDR network block (route) for the macvlan interface.
 " >&2
 }
 
@@ -89,12 +89,12 @@ validate_options() {
         exit 1
     fi
     if [ -z "${ip}" ]; then
-        echo "No IPv4 address specified for the MACVLAN interface!" >&2
+        echo "No IPv4 address specified for the macvlan interface!" >&2
         print_help
         exit 1
     fi
     if [ -z "${network}" ]; then
-        echo "No IPv4 CIDR network block (route) specified for the MACVLAN interface!" >&2
+        echo "No IPv4 CIDR network block (route) specified for the macvlan interface!" >&2
         print_help
         exit 1
     fi
@@ -110,26 +110,26 @@ test_net_conn() {
 
 create_macvlan() {
     if ip link add "${macvlan}" link "${link}" type macvlan mode bridge; then
-        print_msg "Created MACVLAN interface '$macvlan'."
+        print_msg "Created macvlan interface '$macvlan'."
     else
-        echo "Unable to create MACVLAN interface!" >&2
+        echo "Unable to create macvlan interface!" >&2
         exit 1
     fi
     if ip address add "${ip}" dev "${macvlan}"; then
         print_msg "Added IPv4 address '$ip' to nterface '$macvlan'."
     else
-        echo "Unable to add IPv4 address to MACVLAN interface!" >&2
+        echo "Unable to add IPv4 address to macvlan interface!" >&2
         exit 1
     fi
     if ip link set "${macvlan}" up; then
         print_msg "Interface '$macvlan' is set to UP."
     else
-        echo "Unable to bring up MACVLAN interface!" >&2
+        echo "Unable to bring up macvlan interface!" >&2
     fi
     if ip route add "${network}" dev "${macvlan}"; then
         print_msg "Added route '$network' to interface '$macvlan'."
     else
-        echo "Unable to add route to MACVLAN interface!" >&2
+        echo "Unable to add route to macvlan interface!" >&2
     fi
 }
 
