@@ -12,7 +12,7 @@ Script for creating **macvlan** interfaces. Used for enabling network connectivi
 | `-n`, `--network`    | IPv4 CIDR network block (route) for the macvlan interface.        |
 
 ## Examples
-Create a macvlan interface named `macvlan0`with `eth0` as the parent link/device. Assign IPv4 address `192.168.1.20/24` and add route to `192.168.1.0/24` network on the new interface.
+Create a macvlan interface named `macvlan0` with `eth0` as the parent link/device. Assign IPv4 address `192.168.1.20/24` and add route to `192.168.1.0/24` network on the new interface.
 
 ```
 # sh create-macvlan --macvlan macvlan0 --link eth0 --ip-address 192.168.1.20/24 --network 192.168.1.0/24
