@@ -39,7 +39,7 @@ Options:
   -i, --ip-address  IPv4 address in CIDR notation for the macvlan interface.
 
   -n, --network     IPv4 CIDR network block (route) for the macvlan interface.
-" >&2
+" >&1
 }
 
 # Print help if no argument is specified.
